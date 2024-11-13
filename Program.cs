@@ -281,24 +281,106 @@ do
                 Console.WriteLine("We have reached our limit on the number of pets that we can manage.");
                 Console.WriteLine("Press the Enter key to continue.");
                 readResult = Console.ReadLine();
+
             }
  
             break;
  
         case "3":
             // Ensure animal ages and physical descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            // Iterate through ourAnimals
+            // On each animal, prompt user: Enter an age for ID #: {animalID}
+            // On a new line, user can enter an age 
+            // If value is not a number, repeat the prompt
+            // Once age is verified, prompt user with this message...
+            // Enter a physical description for ID #: {animalID}: (size, color, breed, gender, weight, housebroken)
+            // Check that the user input is valid, just needs to be charecters
+            // if not, re prompt
+            // If valid, move onto the next animal or dispaly the message in the instructions.
+            // Then give them the message, Press the enter key to continue 
+
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (ourAnimals[i, 0] != "ID #: ")
+                {
+                    Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
+                    readResult = Console.ReadLine();
+                    if (int.TryParse(readResult, out int number))
+                    {
+                        // Conversion Successful, edit inaimals age
+                        ourAnimals[i, 2] = "Age: " + number;
+                    }
+                    else
+                    {
+                        // Conversion Unsuccessful, reprompt
+                        do
+                        {
+                            Console.WriteLine($"Please enter a number");
+                            readResult = Console.ReadLine();
+                        } while (!int.TryParse(readResult, out int num));
+                    }
+
+                    Console.WriteLine($"Enter a physical description for {ourAnimals[i, 0]}: (size, color, breed, gender, weight, housebroken)");
+                    readResult = Console.ReadLine();
+
+                    if (readResult != null && readResult.Length > 0) 
+                    {
+                        ourAnimals[i, 4] = "Physical description: " + readResult;
+                    } else {
+                        do
+                        {
+                            Console.WriteLine("Please enter a real description");
+                            readResult = Console.ReadLine();
+                        } while(readResult == null);
+                    }
+                }
+            }
+            Console.WriteLine("Age and physical description are complete for all our friends.");
             Console.WriteLine("Press the Enter key to continue.");
-            // prompt user for id
-                // iterate through array and check user input vs ourAnimals
-                // if invalid, return a message saying this ID does not exist, start again
-                // If valid, 
             readResult = Console.ReadLine();
             break;
  
         case "4":
             // Ensure animal nicknames and personality descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            
+             for (int i = 0; i < maxPets; i++)
+            {
+                if (ourAnimals[i, 0] != "ID #: ")
+                {
+                    Console.WriteLine($"Enter a nickname for {ourAnimals[i, 0]}");
+                    readResult = Console.ReadLine();
+                    if (readResult != null && readResult.Length > 0)
+                    {
+                        // Conversion Successful, edit inaimals age
+                        ourAnimals[i, 3] = "Nickname: " + readResult;
+                    }
+                    else
+                    {
+                        // Conversion Unsuccessful, reprompt
+                        do
+                        {
+                            Console.WriteLine($"Please enter a valid nickname");
+                            readResult = Console.ReadLine();
+                        } while (readResult == null);
+                    }
+
+                    Console.WriteLine($"Enter a personality description for {ourAnimals[i, 0]}: (likes or dislikes, tricks, energy level)");
+                    readResult = Console.ReadLine();
+
+                    if (readResult != null && readResult.Length > 0) 
+                    {
+                        ourAnimals[i, 5] = "Personality: " + readResult;
+                    } else {
+                        do
+                        {
+                            Console.WriteLine("Please enter a real description");
+                            readResult = Console.ReadLine();
+                        } while(readResult == null);
+                    }
+                }
+            }
+
+            Console.WriteLine("Nickname and personality description fields are complete for all of our friends.");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
